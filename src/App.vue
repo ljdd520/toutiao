@@ -1,13 +1,21 @@
 <template>
   <div id="app">
-    <h1>黑马头条</h1>
     <!-- 路由的出口 -->
-    <router-view/>
+<!--    <router-view/>-->
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="cachePages">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    ...mapState(['cachePages'])
+  }
 }
 </script>
 <style lang="less">
